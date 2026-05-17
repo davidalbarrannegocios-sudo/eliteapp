@@ -17,7 +17,7 @@ export async function GET() {
   });
 
   return NextResponse.json(
-    communities.map((c) => ({
+    communities.map((c: typeof communities[number]) => ({
       id: c.id,
       name: c.name,
       isPrivate: c.isPrivate,
