@@ -1,11 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
-import path from "path";
 
-const adapter = new PrismaLibSql({
-  url: `file:${path.join(process.cwd(), "prisma", "dev.db")}`,
-});
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter } as any);
 
 async function main() {
@@ -190,28 +187,28 @@ async function main() {
     data: {
       title: "Introduction to JavaScript",
       content:
-        "<h2>What is JavaScript?</h2><p>JavaScript is a lightweight, interpreted programming language with first-class functions. It is most well-known as the scripting language for Web pages, but it's also used in many non-browser environments such as Node.js.</p><h3>What you'll learn</h3><ul><li>History of JavaScript</li><li>How JavaScript runs in the browser</li><li>Your first script</li></ul>",
+        "<h2>What is JavaScript?</h2><p>JavaScript is a lightweight, interpreted programming language with first-class functions.</p>",
       videoUrl: "https://www.youtube.com/watch?v=hdI2bqOjy3c",
       moduleId: module1.id,
       order: 0,
     },
   });
 
-  const lesson2 = await prisma.lesson.create({
+  await prisma.lesson.create({
     data: {
       title: "Setting Up Your Environment",
       content:
-        "<h2>Tools You Need</h2><p>Before writing JavaScript, let's set up a proper development environment.</p><ul><li>VS Code (recommended editor)</li><li>Node.js</li><li>Browser DevTools</li></ul>",
+        "<h2>Tools You Need</h2><p>Before writing JavaScript, let's set up a proper development environment.</p>",
       moduleId: module1.id,
       order: 1,
     },
   });
 
-  const lesson3 = await prisma.lesson.create({
+  await prisma.lesson.create({
     data: {
       title: "Variables and Data Types",
       content:
-        "<h2>Variables</h2><p>Variables are containers for storing data values. In JavaScript we can declare variables using <code>var</code>, <code>let</code>, or <code>const</code>.</p><pre><code>const name = 'Alice';\nlet age = 25;\nvar isStudent = true;</code></pre><h3>Data Types</h3><ul><li>String</li><li>Number</li><li>Boolean</li><li>Object</li><li>Array</li><li>null / undefined</li></ul>",
+        "<h2>Variables</h2><p>Variables are containers for storing data values.</p>",
       videoUrl: "https://www.youtube.com/watch?v=edlFjlzxkSI",
       moduleId: module2.id,
       order: 0,
